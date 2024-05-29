@@ -11,7 +11,7 @@ const nuevoRoommate = async () => {
                 id: uuidv4().slice(0, 6),
                 nombre: `${randomRoommate.name.first} ${randomRoommate.name.last}`,
                 debe: "",
-                recibe: "30000",
+                recibe: "",
         };
         
         const { roommates } = JSON.parse(fs.readFileSync("Roommates.json", "utf-8"));
@@ -24,6 +24,18 @@ const nuevoRoommate = async () => {
     } catch (error) {
         console.status(500);
     }
+};
+
+const updateCuentas = async () => {
+    try {
+        const { roommates } = JSON.parse(fs.readFileSync("Roommates.json", "utf-8"));
+
+        
+
+
+    } catch (error) {
+        console.status(500);
+    }
 }
 
-module.exports = { nuevoRoommate }
+module.exports = { nuevoRoommate, updateCuentas}

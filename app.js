@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
-const { nuevoRoommate } = require('./nuevoRoommate.js');
+const { nuevoRoommate, updateCuentas } = require('./funcionesRoommates.js');
 
 const app = express();
 const port = 3000;
@@ -44,6 +44,8 @@ app.post("/gasto", async (req, res) => {
 
         fs.writeFileSync("Gastos.json", JSON.stringify(gastosJSON));
 
+        updateCuentas(monto)
+
         res.send("Gasto agregado con éxito");
     }
     catch {
@@ -66,7 +68,7 @@ app.put("/gasto", (req, res) => {
         
         fs.writeFileSync("Gastos.json", JSON.stringify(gastosJSON));
 
-        updateDebeRecibe(id, monto);
+        updateCuentas(id, monto);
         res.send("Gasto modificado con éxito");
     }
     catch {
