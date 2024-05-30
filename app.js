@@ -46,7 +46,7 @@ app.post("/gasto", async (req, res) => {
 
         updateCuentas(monto)
 
-        res.send("Gasto agregado con éxito");
+        res.status(205).send("Gasto agregado con éxito");
     }
     catch {
         res.status(500).send("Algo salió mal")
@@ -69,7 +69,7 @@ app.put("/gasto", (req, res) => {
         fs.writeFileSync("Gastos.json", JSON.stringify(gastosJSON));
 
         updateCuentas(id, monto);
-        res.send("Gasto modificado con éxito");
+        res.status(205).send("Gasto modificado con éxito");
     }
     catch {
         res.status(500).send("Algo salió mal")

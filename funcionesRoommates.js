@@ -10,8 +10,8 @@ const nuevoRoommate = async () => {
         const roommate = {
                 id: uuidv4().slice(0, 6),
                 nombre: `${randomRoommate.name.first} ${randomRoommate.name.last}`,
-                debe: "",
-                recibe: "",
+                debe: calculoDebe(),
+                recibe: totalRecibe(),
         };
         
         const { roommates } = JSON.parse(fs.readFileSync("Roommates.json", "utf-8"));
@@ -22,20 +22,32 @@ const nuevoRoommate = async () => {
 
         return roommates;
     } catch (error) {
-        console.status(500);
+        console.log("No se ha podido agregar al roommate.")
     }
 };
 
-const updateCuentas = async () => {
-    try {
-        const { roommates } = JSON.parse(fs.readFileSync("Roommates.json", "utf-8"));
+const totalRecibe = () => {
 
-        
+    const gastosJSON = JSON.parse(fs.readFileSync("Gastos.json", "utf-8"));
 
+    let gastoTotal = 0;
 
-    } catch (error) {
-        console.status(500);
+    for (const gasto of gastosJSON.gastos) {
+        gastoTotal += gasto.monto;
     }
-}
 
-module.exports = { nuevoRoommate, updateCuentas}
+    return gastoTotal;
+  };
+
+const calculoDebe = (gastoTotal) => {
+
+  const gastosJSON = JSON.parse(fs.readFileSync("Gastos.json", "utf-8"));
+
+  const cantidadRoommates = gastosJSON.length();
+
+  const result= gastoTotal / cantidadRoommates;
+
+  return result;
+  }
+
+module.exports = { nuevoRoommate }
