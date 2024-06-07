@@ -1,1 +1,22 @@
-{"roommates":[{"id":"d4bce9","nombre":"Conrado Ramos","debe":"","recibe":""},{"id":"407d6a","nombre":"Elijah Porter","debe":"","recibe":""}]}
+{
+  "roommates": [
+    {
+      "id": "31b34d",
+      "nombre": "Nuria Fuentes",
+      "debe": 0,
+      "recibe": 0
+    },
+    {
+      "id": "37ca86",
+      "nombre": "Asta Larsen",
+      "debe": 0,
+      "recibe": 0
+    },
+    {
+      "id": "7e58ae",
+      "nombre": "Nathan Holland",
+      "debe": 0,
+      "recibe": 0
+    }
+  ]
+}

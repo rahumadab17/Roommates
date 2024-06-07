@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
-const { nuevoRoommate, updateCuentas } = require('./funcionesRoommates.js');
+const { newRoommate, updateCuentas, updateCuentasOnDelete} = require('./funcionesRoommates.js');
 
 const app = express();
 const port = 3000;
@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/roommate", async (req, res) => {
-    res.send(nuevoRoommate());
+    res.send(newRoommate());
 });
 
 app.get("/roommates", (req, res) => {
@@ -44,7 +44,7 @@ app.post("/gasto", async (req, res) => {
 
         fs.writeFileSync("Gastos.json", JSON.stringify(gastosJSON));
 
-        updateCuentas(monto)
+        updateCuentas()
 
         res.status(205).send("Gasto agregado con éxito");
     }
@@ -68,7 +68,8 @@ app.put("/gasto", (req, res) => {
         
         fs.writeFileSync("Gastos.json", JSON.stringify(gastosJSON));
 
-        updateCuentas(id, monto);
+        updateCuentas()
+
         res.status(205).send("Gasto modificado con éxito");
     }
     catch {
@@ -80,6 +81,8 @@ app.delete("/gasto", (req, res) => {
     try {
         const { id } = req.query;
 
+        updateCuentasOnDelete(id)
+
         const gastosJSON = JSON.parse(fs.readFileSync("Gastos.json", "utf-8"));
 
         const gastos = gastosJSON.gastos;
@@ -87,6 +90,7 @@ app.delete("/gasto", (req, res) => {
         gastosJSON.gastos = gastos.filter((g) => g.id !== id);
 
         fs.writeFileSync("Gastos.json", JSON.stringify(gastosJSON));
+
 
         res.send("Gasto eliminado con éxito");
     }
